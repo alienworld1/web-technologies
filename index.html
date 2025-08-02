@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Map</title>
+</head>
+<body>
+    <p>click on different segments of the image to view the respective descriptions</p>
+    <img src="./poker.jpg" alt="Poker table" usemap="#pokermap" width="640px" height="480px">
+    <map name="pokermap" id="pokermap"></map>
+    <script>
+        // i had to alter the image size to make it fit in the page
+        // so i had to scale the pixels accordingly
+        const originalDimensions = {
+            width: 4672, height: 3104
+        };
+
+        function scale(x, y, imageDim) {
+            const newX = (x/originalDimensions.width) * imageDim.width;
+            const newY = (y/originalDimensions.height) * imageDim.height;
+            return {
+                x: newX, y: newY
+            };
+        }
+
+        function addRect(point1, point2, alt, url) {
+            const map = document.getElementById('pokermap');
+            const area = document.createElement('area');
+            area.shape = 'rect';
+            area.alt = alt;
+            area.href = url;
+            area.target = '_blank';
+            area.coords = `${point1.x},${point1.y},${point2.x},${point2.y}`;
+            map.appendChild(area);
+        }
+
+        function addPoly(points, alt, url) {
+            const map = document.getElementById('pokermap');
+            const area = document.createElement('area');
+            area.shape = 'poly';
+            area.alt = alt;
+            area.href = url;
+            area.target = '_blank';
+            const areaCoords = ''.concat(points.map(point => `${point.x},${point.y}`).join(','));
+            area.coords = areaCoords;
+            map.appendChild(area);
+        }
+
+        function addCircle(center, radius, alt, url) {
+            const map = document.getElementById('pokermap');
+            const area = document.createElement('area');
+            area.shape = 'circle';
+            area.alt = alt;
+            area.href = url;
+            area.target = '_blank';
+            area.coords = `${center.x},${center.y},${radius}`;
+            map.appendChild(area);
+        }
+
+        const image = document.querySelector('img');
+        const imageDim = {width: image.width, height: image.height};
+        addRect(scale(1046, 2447, imageDim), scale(2145, 1036, imageDim), 'poker chips', 'https://casinokart.com/collections/poker-chips?srsltid=AfmBOopM0J33pgV7Q-ByZuh1EbTm-XiBiwV6ftOU6YNS_dN5JWJmoM-H');
+        addPoly([
+            scale(1555, 246, imageDim),
+            scale(1936, 816, imageDim),
+            scale(2306, 926, imageDim),
+            scale(3836, 1197, imageDim),
+            scale(4226, 556, imageDim),
+            scale(2775, 237, imageDim)
+        ], 'cards', 'https://www.amazon.in/s?k=deck+of+cards&crid=1KEBCSJZCBL6M&sprefix=deck+of+%2Caps%2C220&ref=nb_sb_ss_mvt-t11-ranker_1_8'); 
+        addCircle(scale(4180, 2609, imageDim), 200/originalDimensions.width * image.width, 'dealer button', 'https://www.amazon.com/s?k=dealer+button');
+
+    </script>
+</body>
+</html>
