@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nordic Fjords Travel Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #1a2f1a;
+            background: 
+                radial-gradient(circle at 20% 80%, #87ceeb 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #b0e0e6 0%, transparent 50%),
+                linear-gradient(135deg, #2e5266 0%, #4a7c59 30%, #6b8e5a 60%, #8fbc8f 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><path d="M0,200 Q250,100 500,150 T1000,120 L1000,300 L0,300 Z" fill="%23395d3f" opacity="0.3"/><path d="M0,250 Q300,180 600,200 T1200,180 L1200,300 L0,300 Z" fill="%234a7c59" opacity="0.4"/></svg>') bottom repeat-x;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(248, 249, 245, 0.95);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 
+                0 10px 30px rgba(45, 62, 45, 0.3),
+                inset 0 0 0 3px rgba(255, 255, 255, 0.8),
+                inset 0 0 0 6px rgba(74, 124, 89, 0.6);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #4a7c59, #8fbc8f, #4a7c59);
+            border-radius: 20px;
+            z-index: -1;
+            filter: blur(8px);
+        }
+
+        header {
+            text-align: center;
+            background: 
+                linear-gradient(45deg, #2d5016, #4a7c59),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><polygon points="0,20 25,0 50,15 75,0 100,20 100,20 0,20" fill="%234a7c59" opacity="0.7"/></svg>') repeat-x;
+            color: #f8f9f5;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 4px solid #1a2f1a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        section {
+            background: 
+                linear-gradient(135deg, #ffffff 0%, #f8f9f5 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="2" fill="%234a7c59" opacity="0.1"/></svg>');
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 
+                0 8px 25px rgba(45, 62, 45, 0.2),
+                inset 0 2px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -2px 0 rgba(74, 124, 89, 0.3);
+            border: 3px solid;
+            border-image: linear-gradient(45deg, #4a7c59, #8fbc8f, #4a7c59) 1;
+            position: relative;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #4a7c59, #8fbc8f);
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        section h2 {
+            color: #2d5016;
+            border-bottom: 3px solid #4a7c59;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .destination-card {
+            border: 4px solid #2d5016;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: 
+                linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            box-shadow: 
+                0 6px 20px rgba(45, 80, 22, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            filter: 
+                contrast(1.2) 
+                saturate(1.1);
+            position: relative;
+        }
+
+        .destination-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(74, 124, 89, 0.1) 50%, 
+                transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 15px 40px rgba(45, 80, 22, 0.4),
+                0 0 20px rgba(74, 124, 89, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border-color: #4a7c59;
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: grab;
+            filter: 
+                contrast(1.3) 
+                saturate(1.2) 
+                brightness(1.1);
+            border-bottom: 3px solid #2d5016;
+            transition: filter 0.3s ease;
+        }
+
+        .destination-card:hover img {
+            filter: 
+                contrast(1.4) 
+                saturate(1.3) 
+                brightness(1.2);
+        }
+
+        .destination-card img:active {
+            cursor: grabbing;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: 
+                linear-gradient(135deg, #ffffff 0%, #f8f9f5 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 25px rgba(45, 62, 45, 0.2),
+                inset 0 2px 0 rgba(255, 255, 255, 0.9);
+            border: 3px solid #4a7c59;
+            filter: contrast(1.1) saturate(1.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #4a7c59;
+            position: relative;
+        }
+
+        th {
+            background: 
+                linear-gradient(45deg, #4a7c59, #2d5016),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="0,20 10,0 20,20" fill="%232d5016" opacity="0.3"/></svg>') repeat-x;
+            color: #f8f9f5;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            border-bottom: 3px solid #1a2f1a;
+        }
+
+        tr:hover {
+            background: linear-gradient(90deg, rgba(74, 124, 89, 0.1) 0%, rgba(143, 188, 143, 0.2) 100%);
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+
+        tr:hover td {
+            text-shadow: 0 0 5px rgba(74, 124, 89, 0.3);
+        }
+
+        .form-container {
+            background: 
+                linear-gradient(135deg, #5d6c40, #3e5c3a),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M0,20 Q10,10 20,20 T40,20 L40,40 L0,40 Z" fill="%232d5016" opacity="0.2"/></svg>') repeat;
+            color: #f8f9f5;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #2d5016;
+            box-shadow: 
+                0 8px 25px rgba(45, 80, 22, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #2d5016;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #f8f9f5;
+            box-shadow: inset 0 2px 4px rgba(45, 80, 22, 0.1);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4a7c59;
+            box-shadow: 
+                inset 0 2px 4px rgba(45, 80, 22, 0.1),
+                0 0 0 3px rgba(74, 124, 89, 0.3);
+        }
+
+        .form-group {
+            margin: 20px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="range"] {
+            background: transparent;
+        }
+
+        .drop-zone {
+            border: 3px dashed #5d6c40;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f0f4e8, #d7e3c7);
+            transition: all 0.3s ease;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-zone:hover {
+            border-color: #3e5c3a;
+            background: linear-gradient(135deg, #d7e3c7, #c5d4b5);
+        }
+
+        .drop-zone p {
+            font-size: 1.2em;
+            color: #2d5016;
+            font-weight: bold;
+        }
+
+        .media-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        audio, video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        footer {
+            background: linear-gradient(45deg, #3e5c3a, #5d6c40);
+            color: #f8f9f5;
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .rating {
+            color: #f39c12;
+            font-size: 1.2em;
+        }
+
+        ol, ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .media-section {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏔️ Nordic Fjords</h1>
+            <p>My Favorite Travel Destinations</p>
+        </header>
+
+        <section>
+            <h2>Top 5 Travel Destinations</h2>
+            <ol>
+                <li><strong>Geiranger Fjord, Norway</strong> - UNESCO World Heritage site with stunning waterfalls</li>
+                <li><strong>Lofoten Islands, Norway</strong> - Dramatic peaks rising from the sea</li>
+                <li><strong>Abisko National Park, Sweden</strong> - Perfect for Northern Lights viewing</li>
+                <li><strong>Rovaniemi, Finland</strong> - Official hometown of Santa Claus</li>
+                <li><strong>Trolltunga, Norway</strong> - Iconic cliff formation for adventurous hikers</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>🎯 Activities at Each Destination</h2>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Geirangerfjord_.jpg/330px-Geirangerfjord_.jpg" 
+                         alt="Geiranger Fjord with dramatic waterfalls" 
+                         width="400px"
+                         height="200px"
+                         draggable="true">
+                    <div class="card-content">
+                        <h3>Geiranger Fjord</h3>
+                        <ul>
+                            <li>Cruise through the fjord</li>
+                            <li>Hike to Dalsnibba viewpoint</li>
+                            <li>Visit Seven Sisters waterfall</li>
+                            <li>Eagle Road scenic drive</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Reine_from_the_Reinebringen.jpg/1200px-Reine_from_the_Reinebringen.jpg" 
+                         alt="Lofoten Islands dramatic mountain peaks" 
+                         width="400px"
+                         height="200px"
+                         draggable="true">
+                    <div class="card-content">
+                        <h3>Lofoten Islands</h3>
+                        <ul>
+                            <li>Sea kayaking adventures</li>
+                            <li>Northern Lights photography</li>
+                            <li>Traditional fishing village tours</li>
+                            <li>Midnight sun hiking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://abiskomountainlodge.se/wp/wp-content/uploads/2017/07/Polarnatten-p%C3%A5-tr%C3%A4sket-mot-bj%C3%B6rkis-Per-Lundstr%C3%B6m.jpg" 
+                         alt="Abisko National Park with aurora borealis" 
+                         draggable="true">
+                    <div class="card-content">
+                        <h3>Abisko National Park</h3>
+                        <ul>
+                            <li>Aurora Sky Station visits</li>
+                            <li>Cross-country skiing</li>
+                            <li>Sami culture experiences</li>
+                            <li>Dog sledding adventures</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>🖼️ Drag & Drop Your Favorite Destinations</h2>
+            <p>Drag any of the destination images above and drop them in the zone below!</p>
+            <div class="drop-zone" 
+                 ondrop="handleDrop(event)" 
+                 ondragover="handleDragOver(event)"
+                 ondragenter="handleDragEnter(event)"
+                 ondragleave="handleDragLeave(event)">
+                <p>🎯 Drop your favorite destination image here!</p>
+            </div>
+        </section>
+        <section>
+            <h2>📊 Destination Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Place</th>
+                        <th>Best Time to Visit</th>
+                        <th>Budget (per day)</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Geiranger Fjord, Norway</strong></td>
+                        <td>June - September</td>
+                        <td>$150 - $250</td>
+                        <td><span class="rating">⭐⭐⭐⭐⭐</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lofoten Islands, Norway</strong></td>
+                        <td>May - September</td>
+                        <td>$120 - $200</td>
+                        <td><span class="rating">⭐⭐⭐⭐⭐</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Abisko National Park, Sweden</strong></td>
+                        <td>September - March (Aurora), June - August (Hiking)</td>
+                        <td>$100 - $180</td>
+                        <td><span class="rating">⭐⭐⭐⭐⭐</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rovaniemi, Finland</strong></td>
+                        <td>December - March (Winter), June - August (Summer)</td>
+                        <td>$90 - $160</td>
+                        <td><span class="rating">⭐⭐⭐⭐</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trolltunga, Norway</strong></td>
+                        <td>June - September</td>
+                        <td>$110 - $190</td>
+                        <td><span class="rating">⭐⭐⭐⭐⭐</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>🗓️ Plan Your Nordic Adventure</h2>
+            <div class="form-container">
+                <form>
+                    <div class="form-group">
+                        <label for="season">Preferred Travel Season:</label>
+                        <select id="season" name="season">
+                            <option value="">Select a season</option>
+                            <option value="spring">Spring (March - May)</option>
+                            <option value="summer">Summer (June - August)</option>
+                            <option value="autumn">Autumn (September - November)</option>
+                            <option value="winter">Winter (December - February)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="trip-date">Planned Trip Date:</label>
+                        <input type="date" id="trip-date" name="trip-date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Daily Budget Range: Rs.<span id="budget-value">100</span></label>
+                        <input type="range" id="budget" name="budget" min="100" max="1000" value="300" 
+                               oninput="document.getElementById('budget-value').textContent = this.value">
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+        <section>
+            <h2>🎵 Immersive Nordic Experience</h2>
+            <div class="media-section">
+                <div>
+                    <h3>Background Music</h3>
+                    <audio controls loop>
+                        <source src="./bgm.mp3" type="audio/mpeg">
+                        <source src="https://www.soundjay.com/nature/wind-1.wav" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <p><small>Nordic ambient background music</small></p>
+                </div>                
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <h3>Virtual Nordic Journey</h3>
+                <iframe width="100%" height="315" 
+                        src="https://www.youtube.com/embed/RSWTegVtUbk" 
+                        title="Norway Fjords Travel Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen 
+                        style="border-radius: 10px;">
+                </iframe>
+            </div>
+        </section>
+
+        <footer>
+            <p>My favorite destinations</p>
+        </footer>
+    </div>
+
+    <script>
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.currentTarget.style.borderColor = '#3e5c3a';
+            event.currentTarget.style.background = 'linear-gradient(135deg, #c5d4b5, #a8c993)';
+        }
+
+        function handleDragEnter(event) {
+            event.preventDefault();
+        }
+
+        function handleDragLeave(event) {
+            event.currentTarget.style.borderColor = '#5d6c40';
+            event.currentTarget.style.background = 'linear-gradient(135deg, #f0f4e8, #d7e3c7)';
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const dropZone = event.currentTarget;
+            const draggedElement = document.querySelector('img[style*="opacity: 0.5"]');
+            
+            if (draggedElement) {
+                // Get the image source and alt text
+                const imageSrc = draggedElement.src;
+                const imageAlt = draggedElement.alt;
+                const destinationName = draggedElement.closest('.destination-card').querySelector('h3').textContent;
+                
+                // Create a new image element for the drop zone
+                const droppedImage = document.createElement('img');
+                droppedImage.src = imageSrc;
+                droppedImage.alt = imageAlt;
+                droppedImage.style.cssText = `
+                    width: 200px;
+                    height: 120px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    border: 3px solid #4a7c59;
+                    margin-bottom: 15px;
+                    filter: contrast(1.3) saturate(1.2) brightness(1.1);
+                    box-shadow: 0 4px 15px rgba(45, 80, 22, 0.3);
+                `;
+                
+                // Update drop zone styling
+                dropZone.style.borderColor = '#4a7c59';
+                dropZone.style.background = 'linear-gradient(135deg, #d7e3c7, #c5d4b5)';
+                dropZone.style.flexDirection = 'column';
+                
+                // Clear and update drop zone content
+                dropZone.innerHTML = '';
+                dropZone.appendChild(droppedImage);
+                
+                const successMessage = document.createElement('p');
+                successMessage.innerHTML = `<strong>${destinationName}</strong> added to your favorites!`;
+                successMessage.style.cssText = `
+                    font-size: 1.1em;
+                    color: #2d5016;
+                    font-weight: bold;
+                    margin-top: 10px;
+                    text-align: center;
+                `;
+                dropZone.appendChild(successMessage);
+                
+                const removeButton = document.createElement('button');
+                removeButton.textContent = '✖ Remove';
+                removeButton.style.cssText = `
+                    margin-top: 10px;
+                    padding: 8px 16px;
+                    background: #8b4513;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: background 0.3s ease;
+                `;
+                removeButton.onmouseover = () => removeButton.style.background = '#a0522d';
+                removeButton.onmouseout = () => removeButton.style.background = '#8b4513';
+                removeButton.onclick = () => resetDropZone(dropZone);
+                
+                dropZone.appendChild(removeButton);
+            }
+            
+            // Reset all image opacities
+            document.querySelectorAll('img[draggable="true"]').forEach(img => {
+                img.style.opacity = '1';
+            });
+        }
+
+        function resetDropZone(dropZone) {
+            dropZone.style.borderColor = '#5d6c40';
+            dropZone.style.background = 'linear-gradient(135deg, #f0f4e8, #d7e3c7)';
+            dropZone.style.flexDirection = 'row';
+            dropZone.innerHTML = '<p style="font-size: 1.2em; color: #2d5016; font-weight: bold;">🎯 Drop your favorite destination image here!</p>';
+        }
+
+        // Make all images draggable with visual feedback
+        document.querySelectorAll('img[draggable="true"]').forEach(img => {
+            img.addEventListener('dragstart', function(event) {
+                // Reset all other images first
+                document.querySelectorAll('img[draggable="true"]').forEach(otherImg => {
+                    otherImg.style.opacity = '1';
+                });
+                
+                this.style.opacity = '0.5';
+                event.dataTransfer.effectAllowed = 'copy';
+                event.dataTransfer.setData('text/plain', this.src);
+            });
+            
+            img.addEventListener('dragend', function(event) {
+                // Don't reset opacity here - let handleDrop do it
+                // This prevents flickering during the drop operation
+            });
+        });
+    </script>
+</body>
+</html>
