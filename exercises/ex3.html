@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky 7 Casino</title>
+    <!-- EXTERNAL CSS: Linked stylesheet for overall layout and theme -->
+    <link rel="stylesheet" href="ex3-style.css">
+
+    <!-- INTERNAL CSS: Styles defined within this HTML document -->
+    <style>
+        /* Internal CSS for Games section only */
+        .games-section {
+            background: linear-gradient(135deg, #1a4d3a, #2d8659);
+            padding: 40px 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .game-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-card h3 {
+            color: #8B0000;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#games">Games</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="hero-section">
+        <h1 class="main-title">Welcome to Lucky 7 Casino!</h1>
+        <p class="subtitle">Where Fortune Meets Fun</p>
+        
+        <button style="background: linear-gradient(45deg, #8B0000, #FF0000); 
+                       color: white; 
+                       border: 3px solid #FFD700; 
+                       padding: 15px 30px; 
+                       font-size: 18px; 
+                       font-weight: bold; 
+                       border-radius: 25px; 
+                       cursor: pointer; 
+                       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                       transition: all 0.3s ease;">
+            🎲 Start Playing Now! 🎲
+        </button>
+    </section>
+
+    <!-- Games Section (styled with INTERNAL CSS) -->
+    <section id="games" class="games-section">
+        <h2>Our Casino Games</h2>
+        
+        <div class="game-card">
+            <h3>🃏 Blackjack</h3>
+            <p>Beat the dealer with 21!</p>
+        </div>
+        
+        <div class="game-card">
+            <h3>🎰 Slots</h3>
+            <p>Spin for the jackpot!</p>
+        </div>
+        
+        <div class="game-card">
+            <h3>🎯 Roulette</h3>
+            <p>Place your lucky bet!</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Contact Lucky 7 Casino</h2>
+        <div class="contact-info">
+            <p>📧 Email: info@lucky7casino.com</p>
+            <p>📞 Phone: 1-800-LUCKY-7</p>
+            <p>📍 Address: 777 Casino Boulevard, Las Vegas</p>
+        </div>
+        
+        <p>Visit us for <span style="color: #FFD700; font-weight: bold; text-shadow: 1px 1px 2px #000;">VIP Treatment</span>!</p>
+    </section>
+
+    <footer>
+        <p>Gamble Responsibly.</p>
+    </footer>
+</body>
+</html>

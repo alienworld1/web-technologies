@@ -1,0 +1,117 @@
+/* EXTERNAL CSS FILE: casino-styles.css */
+/* This file controls the overall layout, fonts, and theme */
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+    color: #ffffff;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Header Navigation */
+header {
+    background: #8B0000;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+nav ul li a {
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: radial-gradient(circle, #2d1810, #1a0f0a);
+}
+
+.main-title {
+    font-size: 3.5rem;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #FFD700;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+/* Contact Section */
+.contact-section {
+    background: #1a4d3a;
+    padding: 40px 20px;
+    margin: 20px 0;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.contact-section h2 {
+    color: #FFD700;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.contact-info p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #ffffff;
+}
+
+/* Footer */
+footer {
+    background: #8B0000;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: #FFD700;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .game-card {
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+    }
+}
