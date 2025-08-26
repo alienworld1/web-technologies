@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Casino - Player Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #2a2a3e, #1e1e2e);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.1);
+            border: 2px solid #333;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #d4af37, #ffd700, #d4af37);
+            padding: 30px;
+            text-align: center;
+            color: #000;
+            border-bottom: 3px solid #b8860b;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffd700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: #2a2a3e;
+            color: #fff;
+        }
+
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkbox-item:hover, .radio-item:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .checkbox-item input, .radio-item input {
+            width: auto;
+            margin-right: 10px;
+            transform: scale(1.2);
+            accent-color: #ffd700;
+        }
+
+        .checkbox-item label, .radio-item label {
+            margin: 0;
+            color: #fff;
+            text-transform: none;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 15px;
+            border: 2px dashed #ffd700;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .file-input-label:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffed4a;
+        }
+
+        .error-message {
+            color: #ff4757;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: block;
+            min-height: 20px;
+            font-weight: 500;
+        }
+
+        .success-message {
+            color: #2ed573;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #d4af37, #ffd700);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+        }
+
+        /* Card-like styling for sections */
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .section h3 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .strength-weak { background: #ff4757; width: 33%; }
+        .strength-medium { background: #ffa502; width: 66%; }
+        .strength-strong { background: #2ed573; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>♠ ROYAL CASINO ♠</h1>
+            <p>Join the Elite Gaming Experience</p>
+        </div>
+
+        <div class="form-container">
+            <form id="registrationForm" novalidate>
+                <!-- Personal Information Section -->
+                <div class="section">
+                    <h3>Personal Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required 
+                                   placeholder="Enter your first name" minlength="2" maxlength="30">
+                            <span class="error-message" id="firstNameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required 
+                                   placeholder="Enter your last name" minlength="2" maxlength="30">
+                            <span class="error-message" id="lastNameError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username *</label>
+                        <input type="text" id="username" name="username" required 
+                               placeholder="Choose a unique username" minlength="3" maxlength="20"
+                               pattern="^[a-zA-Z0-9_]+$">
+                        <span class="error-message" id="usernameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required 
+                               placeholder="your.email@example.com">
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required 
+                                   placeholder="+1 (555) 123-4567" pattern="[\+]?[0-9\s\-\(\)]+">
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date of Birth *</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                            <span class="error-message" id="dateOfBirthError"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Security Section -->
+                <div class="section">
+                    <h3>Account Security</h3>
+                    
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input type="password" id="password" name="password" required 
+                               placeholder="Create a strong password" minlength="8">
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                        </div>
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required 
+                               placeholder="Confirm your password">
+                        <span class="error-message" id="confirmPasswordError"></span>
+                    </div>
+                </div>
+
+                <!-- Gaming Preferences Section -->
+                <div class="section">
+                    <h3>Gaming Preferences</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="favoriteGame">Favorite Casino Game</label>
+                            <select id="favoriteGame" name="favoriteGame">
+                                <option value="">Select a game</option>
+                                <option value="poker">Poker</option>
+                                <option value="blackjack">Blackjack</option>
+                                <option value="roulette">Roulette</option>
+                                <option value="slots">Slot Machines</option>
+                                <option value="baccarat">Baccarat</option>
+                                <option value="craps">Craps</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experienceLevel">Experience Level</label>
+                            <select id="experienceLevel" name="experienceLevel" required>
+                                <option value="">Select your level</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                                <option value="professional">Professional</option>
+                            </select>
+                            <span class="error-message" id="experienceLevelError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Contact Method *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="contactEmail" name="contactMethod" value="email" required>
+                                <label for="contactEmail">Email</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="contactPhone" name="contactMethod" value="phone" required>
+                                <label for="contactPhone">Phone</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="contactSms" name="contactMethod" value="sms" required>
+                                <label for="contactSms">SMS</label>
+                            </div>
+                        </div>
+                        <span class="error-message" id="contactMethodError"></span>
+                    </div>
+                </div>
+
+                <!-- Additional Information Section -->
+                <div class="section">
+                    <h3>Additional Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="profilePicture">Profile Picture</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="profilePicture" name="profilePicture" 
+                                   accept="image/*">
+                            <label for="profilePicture" class="file-input-label">
+                                📁 Choose Profile Picture (JPG, PNG, GIF - Max 5MB)
+                            </label>
+                        </div>
+                        <span class="error-message" id="profilePictureError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="referralCode">Referral Code (Optional)</label>
+                        <input type="text" id="referralCode" name="referralCode" 
+                               placeholder="Enter referral code if you have one"
+                               pattern="^[A-Z0-9]{6,12}$">
+                        <span class="error-message" id="referralCodeError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Membership Preferences</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="newsletter" name="preferences" value="newsletter">
+                                <label for="newsletter">Subscribe to newsletter for exclusive offers</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="vipProgram" name="preferences" value="vip">
+                                <label for="vipProgram">Enroll in VIP rewards program</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="tournaments" name="preferences" value="tournaments">
+                                <label for="tournaments">Notify me about upcoming tournaments</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions Section -->
+                <div class="section">
+                    <h3>Terms & Conditions</h3>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <label for="terms">I agree to the Terms of Service and Privacy Policy *</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ageConfirmation" name="ageConfirmation" required>
+                                <label for="ageConfirmation">I confirm that I am 21 years of age or older *</label>
+                            </div>
+                        </div>
+                        <span class="error-message" id="termsError"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form validation object to store all validation functions
+        const FormValidator = {
+            // Validate first name (2-30 characters, letters only)
+            validateFirstName: function(value) {
+                if (!value.trim()) return "First name is required";
+                if (value.length < 2) return "First name must be at least 2 characters";
+                if (value.length > 30) return "First name must be less than 30 characters";
+                if (!/^[a-zA-Z\s'-]+$/.test(value)) return "First name can only contain letters, spaces, hyphens and apostrophes";
+                return "";
+            },
+
+            // Validate last name (2-30 characters, letters only)
+            validateLastName: function(value) {
+                if (!value.trim()) return "Last name is required";
+                if (value.length < 2) return "Last name must be at least 2 characters";
+                if (value.length > 30) return "Last name must be less than 30 characters";
+                if (!/^[a-zA-Z\s'-]+$/.test(value)) return "Last name can only contain letters, spaces, hyphens and apostrophes";
+                return "";
+            },
+
+            // Validate username (3-20 characters, alphanumeric and underscore only)
+            validateUsername: function(value) {
+                if (!value.trim()) return "Username is required";
+                if (value.length < 3) return "Username must be at least 3 characters";
+                if (value.length > 20) return "Username must be less than 20 characters";
+                if (!/^[a-zA-Z0-9_]+$/.test(value)) return "Username can only contain letters, numbers and underscores";
+                return "";
+            },
+
+            // Validate email format
+            validateEmail: function(value) {
+                if (!value.trim()) return "Email address is required";
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) return "Please enter a valid email address";
+                return "";
+            },
+
+            // Validate phone number (digits, spaces, hyphens, parentheses allowed)
+            validatePhone: function(value) {
+                if (!value.trim()) return "Phone number is required";
+                const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,15}$/;
+                if (!phoneRegex.test(value)) return "Please enter a valid phone number (10-15 digits)";
+                const digitCount = value.replace(/\D/g, '').length;
+                if (digitCount < 10) return "Phone number must contain at least 10 digits";
+                return "";
+            },
+
+            // Validate date of birth (must be 21 or older)
+            validateDateOfBirth: function(value) {
+                if (!value) return "Date of birth is required";
+                const today = new Date();
+                const birthDate = new Date(value);
+                const age = today.getFullYear() - birthDate.getFullYear() - 
+                           (today.getMonth() < birthDate.getMonth() || 
+                            (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate()));
+                
+                if (age < 18) return "You must be at least 18 years old to register";
+                if (age < 21) return "You must be at least 21 years old for casino registration";
+                if (birthDate > today) return "Date of birth cannot be in the future";
+                return "";
+            },
+
+            // Validate password strength
+            validatePassword: function(value) {
+                if (!value) return "Password is required";
+                if (value.length < 8) return "Password must be at least 8 characters long";
+                
+                let strength = 0;
+                const checks = [
+                    /[a-z]/.test(value), // lowercase
+                    /[A-Z]/.test(value), // uppercase
+                    /[0-9]/.test(value), // numbers
+                    /[^A-Za-z0-9]/.test(value) // special characters
+                ];
+                
+                strength = checks.filter(Boolean).length;
+                
+                if (strength < 2) return "Password must contain at least 2 of: lowercase, uppercase, numbers, special characters";
+                
+                // Update password strength indicator
+                const strengthBar = document.getElementById('passwordStrengthBar');
+                strengthBar.className = 'password-strength-bar';
+                if (strength >= 4) strengthBar.classList.add('strength-strong');
+                else if (strength >= 3) strengthBar.classList.add('strength-medium');
+                else strengthBar.classList.add('strength-weak');
+                
+                return "";
+            },
+
+            // Validate password confirmation
+            validateConfirmPassword: function(value, originalPassword) {
+                if (!value) return "Please confirm your password";
+                if (value !== originalPassword) return "Passwords do not match";
+                return "";
+            },
+
+            // Validate file upload (image files, max 5MB)
+            validateProfilePicture: function(file) {
+                if (!file) return ""; // Optional field
+                
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!allowedTypes.includes(file.type)) {
+                    return "Please upload a valid image file (JPG, PNG, or GIF)";
+                }
+                
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                if (file.size > maxSize) {
+                    return "File size must be less than 5MB";
+                }
+                
+                return "";
+            },
+
+            // Show error message for a field
+            showError: function(fieldId, message) {
+                const errorElement = document.getElementById(fieldId + 'Error');
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.style.color = '#ff4757';
+                }
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.style.borderColor = message ? '#ff4757' : '#444';
+                }
+            },
+
+            // Show success message for a field
+            showSuccess: function(fieldId) {
+                const errorElement = document.getElementById(fieldId + 'Error');
+                if (errorElement) {
+                    errorElement.textContent = '';
+                }
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.style.borderColor = '#2ed573';
+                }
+            }
+        };
+
+        // Add event listeners for real-time validation
+        document.addEventListener('DOMContentLoaded', function() {
+            // First Name validation
+            document.getElementById('firstName').addEventListener('blur', function() {
+                const error = FormValidator.validateFirstName(this.value);
+                if (error) FormValidator.showError('firstName', error);
+                else FormValidator.showSuccess('firstName');
+            });
+
+            // Last Name validation
+            document.getElementById('lastName').addEventListener('blur', function() {
+                const error = FormValidator.validateLastName(this.value);
+                if (error) FormValidator.showError('lastName', error);
+                else FormValidator.showSuccess('lastName');
+            });
+
+            // Username validation
+            document.getElementById('username').addEventListener('blur', function() {
+                const error = FormValidator.validateUsername(this.value);
+                if (error) FormValidator.showError('username', error);
+                else FormValidator.showSuccess('username');
+            });
+
+            // Email validation
+            document.getElementById('email').addEventListener('blur', function() {
+                const error = FormValidator.validateEmail(this.value);
+                if (error) FormValidator.showError('email', error);
+                else FormValidator.showSuccess('email');
+            });
+
+            // Phone validation
+            document.getElementById('phone').addEventListener('blur', function() {
+                const error = FormValidator.validatePhone(this.value);
+                if (error) FormValidator.showError('phone', error);
+                else FormValidator.showSuccess('phone');
+            });
+
+            // Date of Birth validation
+            document.getElementById('dateOfBirth').addEventListener('change', function() {
+                const error = FormValidator.validateDateOfBirth(this.value);
+                if (error) FormValidator.showError('dateOfBirth', error);
+                else FormValidator.showSuccess('dateOfBirth');
+            });
+
+            // Password validation with real-time strength indicator
+            document.getElementById('password').addEventListener('input', function() {
+                const error = FormValidator.validatePassword(this.value);
+                if (error) FormValidator.showError('password', error);
+                else FormValidator.showSuccess('password');
+                
+                // Also revalidate confirm password if it has a value
+                const confirmPassword = document.getElementById('confirmPassword');
+                if (confirmPassword.value) {
+                    const confirmError = FormValidator.validateConfirmPassword(confirmPassword.value, this.value);
+                    if (confirmError) FormValidator.showError('confirmPassword', confirmError);
+                    else FormValidator.showSuccess('confirmPassword');
+                }
+            });
+
+            // Confirm Password validation
+            document.getElementById('confirmPassword').addEventListener('blur', function() {
+                const originalPassword = document.getElementById('password').value;
+                const error = FormValidator.validateConfirmPassword(this.value, originalPassword);
+                if (error) FormValidator.showError('confirmPassword', error);
+                else FormValidator.showSuccess('confirmPassword');
+            });
+
+            // Profile Picture validation
+            document.getElementById('profilePicture').addEventListener('change', function() {
+                const file = this.files[0];
+                const error = FormValidator.validateProfilePicture(file);
+                if (error) FormValidator.showError('profilePicture', error);
+                else {
+                    FormValidator.showSuccess('profilePicture');
+                    // Update file input label with selected file name
+                    const label = this.nextElementSibling;
+                    if (file) {
+                        label.textContent = `📁 Selected: ${file.name}`;
+                    }
+                }
+            });
+
+            // Referral Code validation (optional but if provided, must match pattern)
+            document.getElementById('referralCode').addEventListener('blur', function() {
+                if (this.value.trim() && !/^[A-Z0-9]{6,12}$/.test(this.value)) {
+                    FormValidator.showError('referralCode', 'Referral code must be 6-12 uppercase letters and numbers');
+                } else {
+                    FormValidator.showSuccess('referralCode');
+                }
+            });
+
+            // Experience Level validation (required field)
+            document.getElementById('experienceLevel').addEventListener('change', function() {
+                if (!this.value) {
+                    FormValidator.showError('experienceLevel', 'Please select your experience level');
+                } else {
+                    FormValidator.showSuccess('experienceLevel');
+                }
+            });
+
+            // Contact Method validation (required radio button group)
+            const contactMethods = document.querySelectorAll('input[name="contactMethod"]');
+            contactMethods.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    FormValidator.showSuccess('contactMethod');
+                    document.getElementById('contactMethodError').textContent = '';
+                });
+            });
+
+            // Terms and Conditions validation
+            function validateTerms() {
+                const terms = document.getElementById('terms').checked;
+                const age = document.getElementById('ageConfirmation').checked;
+                
+                if (!terms || !age) {
+                    FormValidator.showError('terms', 'You must agree to the terms and confirm your age');
+                    return false;
+                } else {
+                    FormValidator.showSuccess('terms');
+                    document.getElementById('termsError').textContent = '';
+                    return true;
+                }
+            }
+
+            document.getElementById('terms').addEventListener('change', validateTerms);
+            document.getElementById('ageConfirmation').addEventListener('change', validateTerms);
+
+            // Form submission validation
+            document.getElementById('registrationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                const formData = new FormData(this);
+                
+                // Validate all required fields
+                const validations = [
+                    { field: 'firstName', validator: FormValidator.validateFirstName },
+                    { field: 'lastName', validator: FormValidator.validateLastName },
+                    { field: 'username', validator: FormValidator.validateUsername },
+                    { field: 'email', validator: FormValidator.validateEmail },
+                    { field: 'phone', validator: FormValidator.validatePhone },
+                    { field: 'dateOfBirth', validator: FormValidator.validateDateOfBirth },
+                    { field: 'password', validator: FormValidator.validatePassword }
+                ];
+
+                // Run all validations
+                validations.forEach(({ field, validator }) => {
+                    const value = formData.get(field);
+                    const error = validator(value);
+                    if (error) {
+                        FormValidator.showError(field, error);
+                        isValid = false;
+                    }
+                });
+
+                // Validate confirm password
+                const confirmPasswordError = FormValidator.validateConfirmPassword(
+                    formData.get('confirmPassword'),
+                    formData.get('password')
+                );
+                if (confirmPasswordError) {
+                    FormValidator.showError('confirmPassword', confirmPasswordError);
+                    isValid = false;
+                }
+
+                // Validate experience level (required dropdown)
+                if (!formData.get('experienceLevel')) {
+                    FormValidator.showError('experienceLevel', 'Please select your experience level');
+                    isValid = false;
+                }
+
+                // Validate contact method (required radio group)
+                if (!formData.get('contactMethod')) {
+                    FormValidator.showError('contactMethod', 'Please select a preferred contact method');
+                    isValid = false;
+                }
+
+                // Validate profile picture if provided
+                const profilePicture = document.getElementById('profilePicture').files[0];
+                if (profilePicture) {
+                    const fileError = FormValidator.validateProfilePicture(profilePicture);
+                    if (fileError) {
+                        FormValidator.showError('profilePicture', fileError);
+                        isValid = false;
+                    }
+                }
+
+                // Validate referral code if provided
+                const referralCode = formData.get('referralCode');
+                if (referralCode && !/^[A-Z0-9]{6,12}$/.test(referralCode)) {
+                    FormValidator.showError('referralCode', 'Referral code must be 6-12 uppercase letters and numbers');
+                    isValid = false;
+                }
+
+                // Validate terms and conditions
+                if (!validateTerms()) {
+                    isValid = false;
+                }
+
+                // If all validations pass, submit the form
+                if (isValid) {
+                    // Disable submit button to prevent double submission
+                    const submitBtn = document.querySelector('.submit-btn');
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Creating Account...';
+
+                    // Simulate form submission (in real app, this would send to server)
+                    setTimeout(() => {
+                        alert('🎉 Registration Successful! Welcome to Royal Casino!');
+                        
+                        // Reset form and button
+                        this.reset();
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Create Account';
+                        
+                        // Clear all error messages
+                        const errorMessages = document.querySelectorAll('.error-message');
+                        errorMessages.forEach(msg => msg.textContent = '');
+                        
+                        // Reset password strength indicator
+                        document.getElementById('passwordStrengthBar').className = 'password-strength-bar';
+                        
+                        // Reset file input label
+                        document.querySelector('.file-input-label').textContent = '📁 Choose Profile Picture (JPG, PNG, GIF - Max 5MB)';
+                        
+                        // Reset field border colors
+                        const inputs = document.querySelectorAll('input, select');
+                        inputs.forEach(input => input.style.borderColor = '#444');
+                    }, 2000);
+                } else {
+                    // Scroll to first error
+                    const firstError = document.querySelector('.error-message:not(:empty)');
+                    if (firstError) {
+                        firstError.closest('.form-group').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                    }
+                }
+            });
+
+            // Additional UI enhancements
+            
+            // Auto-format phone number as user types
+            document.getElementById('phone').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length >= 10) {
+                    value = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+                } else if (value.length >= 6) {
+                    value = value.replace(/(\d{3})(\d{3})/, '($1) $2-');
+                } else if (value.length >= 3) {
+                    value = value.replace(/(\d{3})/, '($1) ');
+                }
+                e.target.value = value;
+            });
+
+            // Convert referral code to uppercase as user types
+            document.getElementById('referralCode').addEventListener('input', function(e) {
+                e.target.value = e.target.value.toUpperCase();
+            });
+
+            // Add visual feedback for required fields
+            const requiredFields = document.querySelectorAll('input[required], select[required]');
+            requiredFields.forEach(field => {
+                field.addEventListener('focus', function() {
+                    this.style.borderColor = '#ffd700';
+                });
+                
+                field.addEventListener('blur', function() {
+                    if (!this.value.trim() && !this.classList.contains('error')) {
+                        this.style.borderColor = '#ff4757';
+                    }
+                });
+            });
+
+            // Add hover effects to form sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.borderColor = 'rgba(255, 215, 0, 0.4)';
+                });
+                
+                section.addEventListener('mouseleave', function() {
+                    this.style.borderColor = 'rgba(255, 215, 0, 0.2)';
+                });
+            });
+
+            // Smooth scroll animation for form submission
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                header.style.transform = `translateY(${rate}px)`;
+            });
+
+            // Add loading animation to submit button
+            document.querySelector('.submit-btn').addEventListener('click', function(e) {
+                if (!this.disabled) {
+                    this.style.background = 'linear-gradient(45deg, #d4af37, #ffd700)';
+                }
+            });
+
+            // Initialize tooltips for better UX
+            const passwordField = document.getElementById('password');
+            passwordField.setAttribute('title', 'Password must be at least 8 characters with a mix of letters, numbers, and symbols');
+
+            const usernameField = document.getElementById('username');
+            usernameField.setAttribute('title', 'Username can only contain letters, numbers, and underscores');
+
+            const phoneField = document.getElementById('phone');
+            phoneField.setAttribute('title', 'Enter your phone number with country code');
+
+            // Add character counter for username
+            const usernameCounter = document.createElement('div');
+            usernameCounter.style.fontSize = '0.8rem';
+            usernameCounter.style.color = '#aaa';
+            usernameCounter.style.textAlign = 'right';
+            usernameCounter.style.marginTop = '5px';
+            usernameField.parentNode.appendChild(usernameCounter);
+
+            usernameField.addEventListener('input', function() {
+                const remaining = 20 - this.value.length;
+                usernameCounter.textContent = `${this.value.length}/20 characters`;
+                usernameCounter.style.color = remaining < 5 ? '#ffd700' : '#aaa';
+            });
+
+            // Set max date for date of birth (today)
+            const dateField = document.getElementById('dateOfBirth');
+            const today = new Date().toISOString().split('T')[0];
+            dateField.setAttribute('max', today);
+
+            // Set reasonable min date (120 years ago)
+            const minDate = new Date();
+            minDate.setFullYear(minDate.getFullYear() - 120);
+            dateField.setAttribute('min', minDate.toISOString().split('T')[0]);
+        });
+
+        // Additional utility functions for enhanced user experience
+
+        // Function to check if user is on mobile device
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        // Function to validate form section by section
+        function validateSection(sectionElement) {
+            const inputs = sectionElement.querySelectorAll('input[required], select[required]');
+            let sectionValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    sectionValid = false;
+                    input.style.borderColor = '#ff4757';
+                } else {
+                    input.style.borderColor = '#2ed573';
+                }
+            });
+
+            return sectionValid;
+        }
+
+        // Function to show progress as user completes sections
+        function updateProgress() {
+            const sections = document.querySelectorAll('.section');
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                if (validateSection(section)) {
+                    completedSections++;
+                    section.style.borderColor = 'rgba(46, 213, 115, 0.3)';
+                }
+            });
+
+            const progress = (completedSections / sections.length) * 100;
+            // You could add a progress bar here if desired
+            console.log(`Form completion: ${progress}%`);
+        }
+
+        // Add resize handler for responsive behavior
+        window.addEventListener('resize', function() {
+            const container = document.querySelector('.container');
+            if (isMobile()) {
+                container.style.margin = '10px';
+            } else {
+                container.style.margin = '0 auto';
+            }
+        });
+
+        // Accessibility improvements
+        document.addEventListener('keydown', function(e) {
+            // Allow form submission with Ctrl+Enter
+            if (e.ctrlKey && e.key === 'Enter') {
+                const submitBtn = document.querySelector('.submit-btn');
+                if (!submitBtn.disabled) {
+                    submitBtn.click();
+                }
+            }
+        });
+
+        // Add focus management for better keyboard navigation
+        const formElements = document.querySelectorAll('input, select, button');
+        formElements.forEach((element, index) => {
+            element.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab' && e.shiftKey) {
+                    // Shift+Tab handling is automatic
+                } else if (e.key === 'Enter' && element.type !== 'submit') {
+                    e.preventDefault();
+                    const nextElement = formElements[index + 1];
+                    if (nextElement) {
+                        nextElement.focus();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
